@@ -67,7 +67,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="226dp"
+        android:layout_marginBottom="142dp"
         android:gravity="center"
         android:text="register now"
         android:textColor="@color/pureblack"
@@ -79,9 +79,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="267dp"
-        android:text="Respone : "
+        android:layout_marginBottom="183dp"
         android:gravity="center"
+        android:text="Respone : "
         android:textColor="@color/colorAccent"
         android:textSize="20dp" />
 

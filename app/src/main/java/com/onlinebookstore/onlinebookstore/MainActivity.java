@@ -70,28 +70,31 @@ public class MainActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                         try {
 
-                            Log.d("Response", response);
                             JSONObject jsonResponse = new JSONObject(response);
-                            Log.d("JSonObj", jsonResponse.toString());
-                            Log.d("message",jsonResponse.getString("message"));
+
 
                             String token = jsonResponse.getString("token");
-
+                            String message = jsonResponse.getString("message");
+                            Log.d("message",jsonResponse.getString("message"));
                             Log.d("token",token);
-//                            Toast.makeText(MainActivity.this,token,Toast.LENGTH_SHORT).show();
-//                            result.setText(result.getText().toString()+token);
-////
-//                            if (success) {
-//                                Toast.makeText(MainActivity.this,"Login Success",Toast.LENGTH_SHORT).show();
-//
-//                            } else {
-//                                Toast.makeText(MainActivity.this,"Login Fail",Toast.LENGTH_SHORT).show();
-//                                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-//                                builder.setMessage("Login Failed")
-//                                        .setNegativeButton("Retry", null)
-//                                        .create()
-//                                        .show();
-//                            }
+
+                            if (jsonResponse.length()!=0) {
+
+                                Toast.makeText(MainActivity.this,"Login Success",Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(MainActivity.this,HomeActivity.class);
+                                intent.putExtra("token",token);
+                                startActivity(intent);
+
+                            } else {
+
+                                result.setText("Login fail. try again");
+                                Toast.makeText(MainActivity.this,"Login Fail",Toast.LENGTH_SHORT).show();
+                                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                                builder.setMessage("Login Failed")
+                                        .setNegativeButton("Retry", null)
+                                        .create()
+                                        .show();
+                            }
 
                         } catch (JSONException e) {
                             e.printStackTrace();
