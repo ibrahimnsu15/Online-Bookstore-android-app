@@ -7,19 +7,22 @@
     tools:context=".MainActivity"
     android:paddingLeft="30dp"
     android:paddingRight="30dp"
-    android:paddingTop="80dp"
+    android:paddingTop="40dp"
     android:background="@drawable/loginbackround"
     >
 
     <TextView
         android:id="@+id/nameProject"
-        android:text="Online Bookstore"
-        android:textSize="40dp"
-        android:gravity="center"
-        android:textStyle="bold"
-        android:textColor="#0a37ed"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="23dp"
+        android:gravity="center"
+        android:text="Online Bookstore"
+        android:textColor="#0a37ed"
+        android:textSize="40dp"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/loginUsername"
@@ -27,17 +30,20 @@
         android:layout_height="50dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="118dp"
+        android:layout_marginTop="138dp"
         android:drawableLeft="@drawable/usericon"
         android:gravity="center"
         android:hint="Username"
         android:textColor="@color/pureblack"
         android:textSize="20dp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:paddingRight="20dp"
+        />
+
+
 
     <EditText
         android:id="@+id/loginPass"
-        android:inputType="textPassword"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_below="@+id/loginUsername"
@@ -45,9 +51,12 @@
         android:drawableLeft="@drawable/passwordicon"
         android:gravity="center_horizontal"
         android:hint="Password"
+        android:inputType="textPassword"
         android:textColor="@color/pureblack"
         android:textSize="20dp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:paddingRight="20dp"
+        />
 
     <Button
         android:id="@+id/loginButton"
@@ -63,26 +72,25 @@
 
     <TextView
         android:id="@+id/registerButton"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/loginStatus"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="142dp"
         android:gravity="center"
         android:text="register now"
         android:textColor="@color/pureblack"
-        android:textSize="20dp" />
+        android:textSize="20dp"
+        />
 
     <TextView
         android:id="@+id/loginStatus"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/loginButton"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="183dp"
         android:gravity="center"
-        android:text="Respone : "
-        android:textColor="@color/colorAccent"
+        android:text=""
+        android:textColor="#0a37ed"
         android:textSize="20dp" />
 
 

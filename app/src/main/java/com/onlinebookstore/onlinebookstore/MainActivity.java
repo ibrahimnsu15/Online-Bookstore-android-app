@@ -22,6 +22,11 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStreamReader;
+
 import static android.widget.Toast.makeText;
 
 public class MainActivity extends AppCompatActivity {
@@ -41,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
         tvRegisterLink =findViewById(R.id.registerButton);
         bLogin = findViewById(R.id.loginButton);
         result = findViewById(R.id.loginStatus);
+
+        checkAlreadyLogin();
 
         tvRegisterLink.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,23 +85,13 @@ public class MainActivity extends AppCompatActivity {
                             Log.d("message",jsonResponse.getString("message"));
                             Log.d("token",token);
 
-                            if (jsonResponse.length()!=0) {
+                            //store token
+                            savedToken(token);
 
-                                Toast.makeText(MainActivity.this,"Login Success",Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(MainActivity.this,HomeActivity.class);
-                                intent.putExtra("token",token);
-                                startActivity(intent);
+                            Toast.makeText(MainActivity.this,"Login Success",Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(MainActivity.this,HomeActivity.class);
+                            startActivity(intent);
 
-                            } else {
-
-                                result.setText("Login fail. try again");
-                                Toast.makeText(MainActivity.this,"Login Fail",Toast.LENGTH_SHORT).show();
-                                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                                builder.setMessage("Login Failed")
-                                        .setNegativeButton("Retry", null)
-                                        .create()
-                                        .show();
-                            }
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -105,7 +102,52 @@ public class MainActivity extends AppCompatActivity {
                 LoginRequest loginRequest = new LoginRequest(username, password,responseListener);
                 RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
                 queue.add(loginRequest);
+                result.setText("Login fail. try again");
+                etPassword.setText("");
             }
         });
     }
+
+    //store token
+    public void savedToken(String token){
+
+        String fileName = "internalStorage";
+
+        try {
+
+            FileOutputStream fileOutputStream = openFileOutput(fileName,MODE_PRIVATE);
+            fileOutputStream.write(token.getBytes());
+            fileOutputStream.close();
+
+        }catch (Exception e){
+            Toast.makeText(MainActivity.this,"Fail to store token",Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    // check already have token
+    public void checkAlreadyLogin(){
+
+        String queryToken="";
+        try {
+            String fileName = "internalStorage";
+            FileInputStream fileInputStream = openFileInput(fileName);
+            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+            queryToken = bufferedReader.readLine().toString();
+
+        }catch (Exception e){
+        }
+
+        if(queryToken.length()>0){
+            Toast.makeText(MainActivity.this,"already have token",Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(MainActivity.this,HomeActivity.class);
+            startActivity(intent);
+        }else{
+            Toast.makeText(MainActivity.this,"Have no token",Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
 }
