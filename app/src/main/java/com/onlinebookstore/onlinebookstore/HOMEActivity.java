@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.design.internal.NavigationMenuPresenter;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -30,6 +32,8 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HOMEActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -42,6 +46,8 @@ public class HOMEActivity extends AppCompatActivity implements NavigationView.On
     // user prfile
     String name;
     String email;
+
+    List<Book> listBook;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,17 +76,44 @@ public class HOMEActivity extends AppCompatActivity implements NavigationView.On
 
 
 
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        /// navigation
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         navigationView.setNavigationItemSelectedListener(this);
 
+        /// book list instant create
+        listBook = new ArrayList<>();
+        setBookView();
+
+    }
+
+    public void getAllBook(){
 
 
+
+    }
+
+
+
+    private void setBookView() {
+        listBook.add(new Book("Programming","ibrahim","12121231"));
+        listBook.add(new Book("Programming2","iqbal","12121231"));
+        listBook.add(new Book("Programming3","murad","12121231"));
+
+        Log.d("book", "setBookView: added book");
+
+        try {
+            RecyclerView recyclerView = findViewById(R.id.recylerview_id);
+            RecyclerViewAdapter recyclerViewAdapter= new RecyclerViewAdapter(this,listBook);
+            recyclerView.setLayoutManager(new GridLayoutManager(this,2));
+            recyclerView.setAdapter(recyclerViewAdapter);
+
+        }catch (Exception e){
+            Log.d("message", "setBookView: Unable to add book");
+        }
 
     }
 
