@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView tvRegisterLink ;
     private Button bLogin ;
     private TextView result;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,9 +67,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+
+
         bLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String username = etUsername.getText().toString();
                 String password = etPassword.getText().toString();
                 Log.d("loginButton", "onClick: click login");
@@ -85,15 +91,20 @@ public class MainActivity extends AppCompatActivity {
                             Log.d("message",jsonResponse.getString("message"));
                             Log.d("token",token);
 
+
                             //store token
                             savedToken(token);
+                            //unvisible login log
+                            result.setVisibility(View.GONE);
+
 
                             Toast.makeText(MainActivity.this,"Login Success",Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(MainActivity.this,HomeActivity.class);
+                            Intent intent = new Intent(MainActivity.this,HOMEActivity.class);
                             startActivity(intent);
 
 
                         } catch (JSONException e) {
+                            Toast.makeText(MainActivity.this,"Error 401",Toast.LENGTH_SHORT).show();
                             e.printStackTrace();
                         }
                     }
@@ -105,8 +116,10 @@ public class MainActivity extends AppCompatActivity {
                 result.setText("Login fail. try again");
                 etPassword.setText("");
             }
+
         });
     }
+
 
     //store token
     public void savedToken(String token){
@@ -142,11 +155,12 @@ public class MainActivity extends AppCompatActivity {
 
         if(queryToken.length()>0){
             Toast.makeText(MainActivity.this,"already have token",Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(MainActivity.this,HomeActivity.class);
+            Intent intent = new Intent(MainActivity.this,HOMEActivity.class);
             startActivity(intent);
         }else{
             Toast.makeText(MainActivity.this,"Have no token",Toast.LENGTH_SHORT).show();
         }
+
 
     }
 
