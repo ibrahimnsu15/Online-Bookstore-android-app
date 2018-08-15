@@ -70,15 +70,12 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         try {
-                            JSONObject jsonResponse = new JSONObject(response);
-                            boolean success = jsonResponse.getBoolean("success");
-                            if (success) {
-                                Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
-                                RegisterActivity.this.startActivity(intent);
-                            } else {
-                                Toast.makeText(RegisterActivity.this,"Register Failed",Toast.LENGTH_SHORT).show();
-                            }
-                        } catch (JSONException e) {
+                            Log.d("register", response.toString());
+                            Log.d("register", "onResponse: Register success");
+                            Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                            RegisterActivity.this.startActivity(intent);
+
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }

@@ -25,6 +25,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -47,6 +48,9 @@ public class HOMEActivity extends AppCompatActivity implements NavigationView.On
     String name;
     String email;
 
+    ///
+    public String token;
+
     List<Book> listBook;
 
     @Override
@@ -64,7 +68,7 @@ public class HOMEActivity extends AppCompatActivity implements NavigationView.On
         EmailBox=headerView.findViewById(R.id.nevEmailID);
 
         //GET bearer token
-        final String token  = getToken();
+        token  = getToken();
         try {
             getOwnProfile(token);
         } catch (JSONException e) {
@@ -86,22 +90,13 @@ public class HOMEActivity extends AppCompatActivity implements NavigationView.On
 
         /// book list instant create
         listBook = new ArrayList<>();
+        getAllBook();
         setBookView();
 
     }
 
-    public void getAllBook(){
-
-
-
-    }
-
-
 
     private void setBookView() {
-        listBook.add(new Book("Programming","ibrahim","12121231"));
-        listBook.add(new Book("Programming2","iqbal","12121231"));
-        listBook.add(new Book("Programming3","murad","12121231"));
 
         Log.d("book", "setBookView: added book");
 
@@ -148,6 +143,7 @@ public class HOMEActivity extends AppCompatActivity implements NavigationView.On
                     Log.d("Response", "onResponse: "+response.toString());
 
                     JSONObject userObj= jsonResponse.getJSONObject("user");
+
                     name = userObj.getString("name").toString();
                     email = userObj.getString("email").toString();
 
@@ -166,8 +162,57 @@ public class HOMEActivity extends AppCompatActivity implements NavigationView.On
         queue.add(getProfileRequest);
 
 
+    }
+
+    public void getAllBook(){
+        Log.d("book", "getAllBook: get all book");
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+
+                    JSONObject jsonResponse = new JSONObject(response);
+                    Log.d("Response", "onResponse: "+response.toString());
+
+                    JSONArray jsonBookArray = jsonResponse.getJSONArray("books");
+
+
+
+
+
+
+                    for (int i = 0; i < jsonBookArray.length(); i++) {
+                        JSONObject singleBookObj = jsonBookArray.getJSONObject(i);
+
+                        Log.d("single book", "onResponse: "+singleBookObj.toString());
+
+                        String tmpName = singleBookObj.getString("title").toString();
+                        String tmpAuthor = singleBookObj.getString("author").toString();
+                        String tmpISBN = singleBookObj.getString("ISBN").toString();
+
+                        Log.d("name", "onResponse: "+tmpName);
+                        Log.d("author", "onResponse: "+tmpAuthor);
+                        Log.d("ISBN", "onResponse: "+tmpISBN);
+
+                        listBook.add(new Book(tmpName,tmpAuthor,tmpISBN));
+                    }
+
+                    Log.d("BookArray", "BookArray: complete");
+                    setBookView();
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        /// Get request /api/users/me
+        GetAllBookRequest getAllBookRequest = new GetAllBookRequest(token,responseListener);
+        RequestQueue queue = Volley.newRequestQueue(HOMEActivity.this);
+        queue.add(getAllBookRequest);
 
     }
+
 
     public void setUserProfile(){
         NameBox.setText(name);
@@ -207,6 +252,9 @@ public class HOMEActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.nevItemDashboard) {
             //
         } else if (id == R.id.nevItemAllBook) {
+            listBook.clear();
+            getAllBook();
+            Log.d("allbook", "onNavigationItemSelected: complete get book");
 
         } else if (id == R.id.nevItemCategories) {
 
