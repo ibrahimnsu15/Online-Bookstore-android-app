@@ -41,6 +41,8 @@ public class HOMEActivity extends AppCompatActivity implements NavigationView.On
     private TextView NameBox;
     private TextView EmailBox;
 
+
+
     ///
     private ActionBarDrawerToggle toggle;
 
@@ -103,7 +105,7 @@ public class HOMEActivity extends AppCompatActivity implements NavigationView.On
         try {
             RecyclerView recyclerView = findViewById(R.id.recylerview_id);
             RecyclerViewAdapter recyclerViewAdapter= new RecyclerViewAdapter(this,listBook);
-            recyclerView.setLayoutManager(new GridLayoutManager(this,2));
+            recyclerView.setLayoutManager(new GridLayoutManager(this,1));
             recyclerView.setAdapter(recyclerViewAdapter);
 
         }catch (Exception e){
@@ -189,12 +191,24 @@ public class HOMEActivity extends AppCompatActivity implements NavigationView.On
                         String tmpName = singleBookObj.getString("title").toString();
                         String tmpAuthor = singleBookObj.getString("author").toString();
                         String tmpISBN = singleBookObj.getString("ISBN").toString();
+                        String tmpDetails = singleBookObj.getString("details").toString();
+                        String tmpImageUrl = singleBookObj.getString("image").toString();
+                        double tmpRating=0;
+                        int tmpCount=0;
+                        if(singleBookObj.getJSONObject("rating")!=null){
+                            JSONObject ratingObj = singleBookObj.getJSONObject("rating");
+                            tmpRating = ratingObj.getDouble("rating");
+                            tmpCount=ratingObj.getInt("count");
+                        }
+
+                        Log.d("rating", "onSinglebook: "+tmpRating);
+
 
                         Log.d("name", "onResponse: "+tmpName);
                         Log.d("author", "onResponse: "+tmpAuthor);
                         Log.d("ISBN", "onResponse: "+tmpISBN);
 
-                        listBook.add(new Book(tmpName,tmpAuthor,tmpISBN));
+                        listBook.add(new Book(tmpName,tmpAuthor,tmpISBN,tmpDetails,tmpImageUrl,tmpRating,tmpCount));
                     }
 
                     Log.d("BookArray", "BookArray: complete");

@@ -6,7 +6,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -37,7 +40,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.bookName.setText(mData.get(position).getBookName());
         holder.authurName.setText("Author: "+mData.get(position).getAuthorName());
         holder.isbnCode.setText("ISBN: "+mData.get(position).getIsbnCode());
+        holder.rating.setText("Rating: "+mData.get(position).getRating());
+        loadImagefromURL(holder,mData.get(position).getImageUrl());
     }
+
+    public void loadImagefromURL(@NonNull MyViewHolder holder,String url){
+        Picasso.get().load(url).placeholder(R.drawable.bookcover)
+                .error(R.drawable.bookcover)
+                .into(holder.bookCover);
+    }
+
 
     @Override
     public int getItemCount() {
@@ -49,6 +61,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         TextView bookName;
         TextView authurName;
         TextView isbnCode;
+        TextView rating;
+        ImageView bookCover;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -56,8 +70,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             bookName = itemView.findViewById(R.id.cardBookName);
             authurName = itemView.findViewById(R.id.cardAuthorName);
             isbnCode = itemView.findViewById(R.id.cardISBN);
-
-
+            rating = itemView.findViewById(R.id.cardRating);
+            bookCover=itemView.findViewById(R.id.cardImage);
 
         }
     }

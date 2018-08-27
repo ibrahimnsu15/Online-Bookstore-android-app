@@ -18,18 +18,20 @@
         android:layout_height="50dp"
         android:contentDescription="@string/nav_header_desc"
         android:paddingTop="4dp"
-        app:srcCompat="@drawable/user" />
+        app:srcCompat="@drawable/user"
+        />
 
     <TextView
         android:id="@+id/nevNameID"
         android:text="name"
+        android:textSize="25dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
         android:id="@+id/nevEmailID"
+        android:textSize="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Email"

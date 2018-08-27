@@ -38,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView result;
 
 
+    public static String HostingIP="192.168.0.103";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
