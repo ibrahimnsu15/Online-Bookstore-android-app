@@ -23,14 +23,14 @@
         <activity
             android:name=".HOMEActivity"
             android:label="Online Bookstore"
-            android:theme="@style/AppTheme"
-            >
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".BookActivity"></activity>
     </application>
 
 </manifest>

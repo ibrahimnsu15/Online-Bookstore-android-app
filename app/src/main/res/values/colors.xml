@@ -6,4 +6,7 @@
     <color name="pureblack">#000</color>
     <color name="lightBlue">#58A6E6</color>
     <color name="cardBackground">#c5f7ea</color>
+    <color name="titlecolor">#ca6901</color>
+    <color name="bookActivity">#cca240</color>
+    <color name="ratingGolden">#fffd67</color>
 </resources>
