@@ -13,10 +13,6 @@
             android:icon="@drawable/allbook"
             android:title="All book" />
         <item
-            android:id="@+id/nevItemCategories"
-            android:icon="@drawable/category"
-            android:title="Categories" />
-        <item
             android:id="@+id/navItemlogout"
             android:icon="@drawable/logout"
             android:title="Logout" />

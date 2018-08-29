@@ -270,9 +270,7 @@ public class HOMEActivity extends AppCompatActivity implements NavigationView.On
             getAllBook();
             Log.d("allbook", "onNavigationItemSelected: complete get book");
 
-        } else if (id == R.id.nevItemCategories) {
-
-        } else if (id == R.id.navItemlogout) {
+        }else if (id == R.id.navItemlogout) {
             deleteToken();
             Intent intent = new Intent(HOMEActivity.this,MainActivity.class);
             startActivity(intent);
