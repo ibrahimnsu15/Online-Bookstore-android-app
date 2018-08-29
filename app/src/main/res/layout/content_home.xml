@@ -12,22 +12,34 @@
 
     <TextView
         android:id="@+id/catagoriesTextID"
+        android:paddingTop="5dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="132dp"
+        android:layout_height="50dp"
+        android:layout_alignTop="@+id/CategoriesSpinnerViewID"
+        android:layout_toStartOf="@+id/CategoriesSpinnerViewID"
         android:background="#b4d965"
-        android:text="Catagories"
+        android:text="Categories"
         android:textColor="#2e93c9"
         android:textSize="25dp" />
 
+    <Spinner
+        android:id="@+id/CategoriesSpinnerViewID"
+        android:paddingTop="5dp"
+        android:layout_width="214dp"
+        android:layout_height="50dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="18dp"
+        >
+
+    </Spinner>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recylerview_id"
-        android:layout_below="@id/catagoriesTextID"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </android.support.v7.widget.RecyclerView>
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/catagoriesTextID"></android.support.v7.widget.RecyclerView>
 
 
 

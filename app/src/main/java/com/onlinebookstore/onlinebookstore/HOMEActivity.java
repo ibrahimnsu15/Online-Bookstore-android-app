@@ -13,6 +13,8 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,15 +33,19 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class HOMEActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private TextView NameBox;
     private TextView EmailBox;
+    private Spinner CategoriesSpinner;
+    private TextView spinnerText;
 
-
+    String[] spinnerItem={"All Catagories","Classics","Fantasy","Fiction","Thriller"};
 
     ///
     private ActionBarDrawerToggle toggle;
@@ -64,8 +70,18 @@ public class HOMEActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
 
+        //
         NameBox=headerView.findViewById(R.id.nevNameID);;
         EmailBox=headerView.findViewById(R.id.nevEmailID);
+        spinnerText= findViewById(R.id.catagoriesTextID);
+        CategoriesSpinner = findViewById(R.id.CategoriesSpinnerViewID);
+
+        //
+        ///
+
+        /// Categories Spinner
+        ArrayAdapter<String> adapter = new ArrayAdapter(this,R.layout.spinner_item_view,R.id.CategoriesItemViewID,spinnerItem);
+        CategoriesSpinner.setAdapter(adapter);
 
         //GET bearer token
         token  = getToken();
@@ -164,6 +180,7 @@ public class HOMEActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+
     public void getAllBook(){
         Log.d("book", "getAllBook: get all book");
         Response.Listener<String> responseListener = new Response.Listener<String>() {
@@ -175,10 +192,6 @@ public class HOMEActivity extends AppCompatActivity implements NavigationView.On
                     Log.d("Response", "onResponse: "+response.toString());
 
                     JSONArray jsonBookArray = jsonResponse.getJSONArray("books");
-
-
-
-
 
 
                     for (int i = 0; i < jsonBookArray.length(); i++) {
@@ -198,6 +211,8 @@ public class HOMEActivity extends AppCompatActivity implements NavigationView.On
                             tmpRating = ratingObj.getDouble("rating");
                             tmpCount=ratingObj.getInt("count");
                         }
+
+
 
                         Log.d("rating", "onSinglebook: "+tmpRating);
 
@@ -271,6 +286,8 @@ public class HOMEActivity extends AppCompatActivity implements NavigationView.On
                     }
 
                     Log.d("BookArray", "BookArray: complete");
+
+
                     setBookView();
 
                 } catch (JSONException e) {
@@ -324,6 +341,7 @@ public class HOMEActivity extends AppCompatActivity implements NavigationView.On
 
         if (id == R.id.nevItemDashboard) {
             //recommend Book
+            listBook.clear();
             getRecommendBook();
             Log.d("recommendbook", "onNavigationItemSelected: complete get recommend book");
         } else if (id == R.id.nevItemAllBook) {
