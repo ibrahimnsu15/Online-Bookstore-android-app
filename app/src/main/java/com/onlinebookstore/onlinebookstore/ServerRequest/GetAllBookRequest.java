@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class GetAllBookRequest extends StringRequest{
 
-    private static final String REGISTER_REQUEST_URL = "http://"+ MainActivity.HostingIP+":8000/api//books/";
+    private static final String REGISTER_REQUEST_URL = "http://"+ MainActivity.HostingIP+"/api/books/";
     private Map<String, String> header;
 
     public GetAllBookRequest(String token, Response.Listener<String> listener) {

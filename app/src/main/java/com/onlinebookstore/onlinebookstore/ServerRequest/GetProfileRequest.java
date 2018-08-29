@@ -10,7 +10,7 @@ import java.util.Map;
 
 
 public class GetProfileRequest extends StringRequest {
-    private static final String REGISTER_REQUEST_URL = "http://"+ MainActivity.HostingIP+":8000/api/users/me";
+    private static final String REGISTER_REQUEST_URL = "http://"+ MainActivity.HostingIP+"/api/users/me";
     private Map<String, String> header;
 
     public GetProfileRequest(String token, Response.Listener<String> listener) {

@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class GetRecommendBookRequest extends StringRequest{
 
-    private static final String REGISTER_REQUEST_URL = "http://"+ MainActivity.HostingIP+":8000/api//books/recommend";
+    private static final String REGISTER_REQUEST_URL = "http://"+ MainActivity.HostingIP+"/api/books/recommend";
     private Map<String, String> header;
 
     public GetRecommendBookRequest(String token, Response.Listener<String> listener) {

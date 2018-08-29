@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RegisterRequest extends StringRequest {
-    private static final String REGISTER_REQUEST_URL = "http://"+ MainActivity.HostingIP+":8000/api/register";
+    private static final String REGISTER_REQUEST_URL = "http://"+ MainActivity.HostingIP+"/api/register";
     private Map<String, String> params;
 
     public RegisterRequest(String name, String username, String email, String password, Response.Listener<String> listener) {

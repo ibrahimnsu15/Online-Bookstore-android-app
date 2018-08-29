@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView result;
 
 
-    public static String HostingIP="192.168.0.103";
+    public static String HostingIP="swe-bookstore.herokuapp.com";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

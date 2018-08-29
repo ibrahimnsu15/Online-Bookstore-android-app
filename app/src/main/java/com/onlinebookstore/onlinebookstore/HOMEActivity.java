@@ -206,12 +206,14 @@ public class HOMEActivity extends AppCompatActivity implements NavigationView.On
                         String tmpImageUrl = singleBookObj.getString("image").toString();
                         double tmpRating=0;
                         int tmpCount=0;
-                        if(singleBookObj.getJSONObject("rating")!=null){
-                            JSONObject ratingObj = singleBookObj.getJSONObject("rating");
-                            tmpRating = ratingObj.getDouble("rating");
-                            tmpCount=ratingObj.getInt("count");
-                        }
 
+                        try {
+                            if (!singleBookObj.getJSONObject("rating").equals(null)) {
+                                JSONObject ratingObj = singleBookObj.getJSONObject("rating");
+                                tmpRating = ratingObj.getDouble("rating");
+                                tmpCount = ratingObj.getInt("count");
+                            }
+                        }catch (Exception e){}
 
 
                         Log.d("rating", "onSinglebook: "+tmpRating);
