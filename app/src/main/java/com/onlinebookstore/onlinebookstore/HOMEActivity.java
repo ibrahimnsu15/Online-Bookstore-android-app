@@ -1,11 +1,7 @@
 package com.onlinebookstore.onlinebookstore;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.internal.NavigationMenuPresenter;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -16,7 +12,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +19,9 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.onlinebookstore.onlinebookstore.ServerRequest.GetAllBookRequest;
+import com.onlinebookstore.onlinebookstore.ServerRequest.GetProfileRequest;
+import com.onlinebookstore.onlinebookstore.ServerRequest.GetRecommendBookRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -92,7 +90,7 @@ public class HOMEActivity extends AppCompatActivity implements NavigationView.On
 
         /// book list instant create
         listBook = new ArrayList<>();
-        getAllBook();
+        getRecommendBook();
         setBookView();
 
     }
@@ -227,6 +225,67 @@ public class HOMEActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+    public void getRecommendBook(){
+        Log.d("book", "getRecommendBook: get all book");
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+
+                    JSONObject jsonResponse = new JSONObject(response);
+                    Log.d("Response", "onResponse: "+response.toString());
+
+                    JSONArray jsonBookArray = jsonResponse.getJSONArray("books");
+
+
+
+
+
+
+                    for (int i = 0; i < jsonBookArray.length(); i++) {
+                        JSONObject singleBookObj = jsonBookArray.getJSONObject(i);
+
+                        Log.d("single book", "onResponse: "+singleBookObj.toString());
+
+                        String tmpName = singleBookObj.getString("title").toString();
+                        String tmpAuthor = singleBookObj.getString("author").toString();
+                        String tmpISBN = singleBookObj.getString("ISBN").toString();
+                        String tmpDetails = singleBookObj.getString("details").toString();
+                        String tmpImageUrl = singleBookObj.getString("image").toString();
+                        double tmpRating=0;
+                        int tmpCount=0;
+                        if(singleBookObj.getJSONObject("rating")!=null){
+                            JSONObject ratingObj = singleBookObj.getJSONObject("rating");
+                            tmpRating = ratingObj.getDouble("rating");
+                            tmpCount=ratingObj.getInt("count");
+                        }
+
+                        Log.d("rating", "onSinglebook: "+tmpRating);
+
+
+                        Log.d("name", "onResponse: "+tmpName);
+                        Log.d("author", "onResponse: "+tmpAuthor);
+                        Log.d("ISBN", "onResponse: "+tmpISBN);
+
+                        listBook.add(new Book(tmpName,tmpAuthor,tmpISBN,tmpDetails,tmpImageUrl,tmpRating,tmpCount));
+                    }
+
+                    Log.d("BookArray", "BookArray: complete");
+                    setBookView();
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        /// Get request /api/users/me
+        GetRecommendBookRequest getRecommendBookRequest = new GetRecommendBookRequest(token,responseListener);
+        RequestQueue queue = Volley.newRequestQueue(HOMEActivity.this);
+        queue.add(getRecommendBookRequest);
+
+    }
+
 
     public void setUserProfile(){
         NameBox.setText(name);
@@ -264,7 +323,9 @@ public class HOMEActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         if (id == R.id.nevItemDashboard) {
-            //
+            //recommend Book
+            getRecommendBook();
+            Log.d("recommendbook", "onNavigationItemSelected: complete get recommend book");
         } else if (id == R.id.nevItemAllBook) {
             listBook.clear();
             getAllBook();

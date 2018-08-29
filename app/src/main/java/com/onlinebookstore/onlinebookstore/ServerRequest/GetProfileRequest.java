@@ -1,15 +1,16 @@
-package com.onlinebookstore.onlinebookstore;
+package com.onlinebookstore.onlinebookstore.ServerRequest;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
+import com.onlinebookstore.onlinebookstore.MainActivity;
 
 import java.util.HashMap;
 import java.util.Map;
 
 
 public class GetProfileRequest extends StringRequest {
-    private static final String REGISTER_REQUEST_URL = "http://"+MainActivity.HostingIP+":8000/api/users/me";
+    private static final String REGISTER_REQUEST_URL = "http://"+ MainActivity.HostingIP+":8000/api/users/me";
     private Map<String, String> header;
 
     public GetProfileRequest(String token, Response.Listener<String> listener) {

@@ -1,15 +1,11 @@
 package com.onlinebookstore.onlinebookstore;
 
 
-import android.app.ActionBar;
-import android.app.AlertDialog;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -17,8 +13,8 @@ import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.Volley;
+import com.onlinebookstore.onlinebookstore.ServerRequest.LoginRequest;
 
 import org.json.JSONException;
 import org.json.JSONObject;

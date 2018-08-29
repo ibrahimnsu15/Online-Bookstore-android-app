@@ -10,7 +10,7 @@
     android:background="@color/lightBlue"
     android:id="@+id/clickScrollViewID"
     android:fillViewport="true"
-
+    android:paddingTop="7dp"
     >
 
 
