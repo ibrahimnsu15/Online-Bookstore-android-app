@@ -1,12 +1,16 @@
 package com.onlinebookstore.onlinebookstore;
 
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -19,6 +23,8 @@ public class BookActivity extends AppCompatActivity {
     private TextView ratingUserCount;
     private RatingBar ratingBar;
     private TextView Description;
+    private Button GiveRatingButton;
+    //private Button RatingSubmitButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +39,8 @@ public class BookActivity extends AppCompatActivity {
         ratingUserCount = findViewById(R.id.clickUserRatingCount);
         ratingBar = findViewById(R.id.clickRatingRingBar);
         Description = findViewById(R.id.clickBookDescription);
-
+        GiveRatingButton = findViewById(R.id.clickGiveRating);
+      //  RatingSubmitButton = findViewById(R.id.DialogSubmit);
 
         /// Receive data
         Intent intent = getIntent();
@@ -65,6 +72,21 @@ public class BookActivity extends AppCompatActivity {
         Picasso.get().load(imageUrl).placeholder(R.drawable.bookcover)
                 .error(R.drawable.bookcover)
                 .into(bookCover);
+
+        GiveRatingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(BookActivity.this);
+                View mView = getLayoutInflater().inflate(R.layout.dialog_rating_bar,null);
+
+
+                mBuilder.setView(mView);
+                final AlertDialog dialog= mBuilder.create();
+                dialog.show();
+            }
+        });
+
+
 
 
     }

@@ -70,6 +70,18 @@
                 android:progressTint="@color/ratingGolden"
                 android:rating="4" />
 
+            <Button
+                android:id="@+id/clickGiveRating"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/clickAuthorName"
+                android:layout_marginEnd="23dp"
+                android:text="Reviews"
+                android:textAllCaps="false"
+                android:background="@color/colorAccent"
+                />
+
             <TextView
                 android:id="@+id/clickUserRatingCount"
                 android:layout_width="112dp"
